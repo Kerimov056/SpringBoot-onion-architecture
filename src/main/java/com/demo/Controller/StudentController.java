@@ -19,42 +19,40 @@ import com.demo.dto.GetStudentDto;
 import com.demo.dto.UpdateStudentDto;
 import com.demo.iService.IStudentService;
 
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/student")
-
 public class StudentController {
-	
+
 	@Autowired
-    private IStudentService studentService;
+	private IStudentService studentService;
 
 	@GetMapping("/allStudent")
-	public ResponseEntity<List<GetStudentDto>> getAllStudents(){
-		List<GetStudentDto> students = studentService.getAll();
-        return ResponseEntity.ok(students);
+	public ResponseEntity<List<GetStudentDto>> getAllStudents() {
+		return ResponseEntity.ok(studentService.getAll());
 	}
-	
+
 	@GetMapping("/allStudent/{id}")
-	public ResponseEntity<GetStudentDto> getStudent(@PathVariable UUID id){
-		 GetStudentDto student = studentService.findBy(id);
-		 return ResponseEntity.ok(student);
+	public ResponseEntity<GetStudentDto> getStudent(@PathVariable UUID id) {
+		return ResponseEntity.ok(studentService.findBy(id));
 	}
-	
+
 	@PostMapping("/post")
-    public ResponseEntity<Void> createStudent(@RequestBody CreateStudentDto dto) {
-        studentService.save(dto);
-        return ResponseEntity.ok().build();
-    }
-	
+	public ResponseEntity<Void> createStudent(@RequestBody @Valid CreateStudentDto dto) {
+		studentService.save(dto);
+		return ResponseEntity.ok().build();
+	}
+
 	@PutMapping("/update/{id}")
-    public ResponseEntity<Void> updateStudent(@PathVariable UUID id, @RequestBody UpdateStudentDto dto) {
-        studentService.update(id, dto);
-        return ResponseEntity.ok().build();
-    }
-	
+	public ResponseEntity<Void> updateStudent(@PathVariable UUID id, @RequestBody UpdateStudentDto dto) {
+		studentService.update(id, dto);
+		return ResponseEntity.ok().build();
+	}
+
 	@DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable UUID id) {
-        studentService.delete(id);
-        return ResponseEntity.ok().build();
-    }
+	public ResponseEntity<Void> deleteStudent(@PathVariable UUID id) {
+		studentService.delete(id);
+		return ResponseEntity.ok().build();
+	}
 }
