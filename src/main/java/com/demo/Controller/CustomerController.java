@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.dto.adress.UpdateAdressDto;
 import com.demo.dto.customer.CreateCustomerDto;
 import com.demo.dto.customer.GetCustomerDto;
 import com.demo.dto.customer.UpdateCustomerDto;
