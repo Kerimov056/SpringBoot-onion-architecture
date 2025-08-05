@@ -1,7 +1,6 @@
 package com.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.dto.home.CreateHomeDto;
 import com.demo.dto.home.GetHomeDto;
+import com.demo.dto.home.UpdateHomeDto;
 import com.demo.dto.room.GetRoomDto;
 import com.demo.entities.Home;
 import com.demo.entities.Room;
@@ -42,8 +42,7 @@ public class HomeService implements IHomeService {
 
 	@Override
 	public void delete(UUID id) {
-		 Home home = iHomeRepository.findByIdWithRooms(id)
-			        .orElseThrow(() -> new RuntimeException("Home not found"));
+		 Home home =  checkHomeId(id);
 		 iHomeRepository.delete(home);
 	}
 
@@ -71,8 +70,7 @@ public class HomeService implements IHomeService {
 
 	@Override
 	public GetHomeDto findBy(UUID id) {
-	    Home home = iHomeRepository.findByIdWithRooms(id)
-	        .orElseThrow(() -> new RuntimeException("Home not found"));
+	    Home home = checkHomeId(id);
 
 	    List<GetRoomDto> roomDtos = home.getRooms().stream().map(room ->
 	        new GetRoomDto(
@@ -88,6 +86,19 @@ public class HomeService implements IHomeService {
 	        home.getHomeAreaKV(),
 	        roomDtos
 	    );
+	}
+
+	@Override
+	public void update(UUID id, UpdateHomeDto dto) {
+		 Home home = checkHomeId(id);
+		 home.setHomeAreaKV(dto.getHomeAreaKV());
+		 home.setIpAddress(dto.getIpAddress());
+		 iHomeRepository.save(home);
+	}
+	
+	private Home checkHomeId(UUID id) {
+		return iHomeRepository.findByIdWithRooms(id)
+		        .orElseThrow(() -> new RuntimeException("Home not found"));
 	}
 
 

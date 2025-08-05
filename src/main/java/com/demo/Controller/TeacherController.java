@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.demo.dto.home.CreateHomeDto;
-import com.demo.dto.home.GetHomeDto;
-import com.demo.dto.home.UpdateHomeDto;
-import com.demo.iService.IHomeService;
+import com.demo.dto.teacher.CreateTeacherDto;
+import com.demo.dto.teacher.GetTeacherDto;
+import com.demo.dto.teacher.UpdateTeacherDto;
+import com.demo.iService.ITeacherService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/home")
-public class HomeController {
+@RequestMapping("/api/teacher")
+public class TeacherController {
 
 	@Autowired
-	private IHomeService iHomeService;
-
+	private ITeacherService iTeacherService;
+	
 	@PostMapping("/post")
-	public ResponseEntity<Void> createHome(@RequestBody @Valid CreateHomeDto dto) {
-		iHomeService.save(dto);
+	public ResponseEntity<Void> createTeacher(@RequestBody @Valid CreateTeacherDto dto) {
+		iTeacherService.save(dto);
 		return ResponseEntity.ok().build();
 	}
 
-	@GetMapping("/allHomes")
-	public ResponseEntity<List<GetHomeDto>> getAllHomes() {
-		return ResponseEntity.ok(iHomeService.getAll());
+	@GetMapping("/allTeacher")
+	public ResponseEntity<List<GetTeacherDto>> getAllTeachers() {
+		return ResponseEntity.ok(iTeacherService.getAll());
 	}
 
-	@GetMapping("/allHomes/{id}")
-	public ResponseEntity<GetHomeDto> getHomes(@PathVariable UUID id) {
-		return ResponseEntity.ok(iHomeService.findBy(id));
+	@GetMapping("/allTeacher/{id}")
+	public ResponseEntity<GetTeacherDto> getTeacher(@PathVariable UUID id) {
+		return ResponseEntity.ok(iTeacherService.findBy(id));
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Void> deleteHome(@PathVariable UUID id) {
-		iHomeService.delete(id);
+	public ResponseEntity<Void> deleteTeacher(@PathVariable UUID id) {
+		iTeacherService.delete(id);
 		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Void> updateHome(@PathVariable UUID id, @RequestBody @Valid UpdateHomeDto dto) {
-		iHomeService.update(id, dto);
+	public ResponseEntity<Void> updateTeachere(@PathVariable UUID id, @RequestBody @Valid UpdateTeacherDto dto) {
+		iTeacherService.update(id, dto);
 		return ResponseEntity.ok().build();
 	}
 }
