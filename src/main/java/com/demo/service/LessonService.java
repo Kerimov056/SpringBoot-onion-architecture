@@ -18,8 +18,10 @@ import com.demo.iRepository.ITeacherRepository;
 import com.demo.iService.ILessonService;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class LessonService implements ILessonService {
 
@@ -97,6 +99,7 @@ public class LessonService implements ILessonService {
 	        return new GetLessonDto(
 	            lesson.getId(),
 	            lesson.getSubject(),
+	            lesson.getStudentCount(),
 	            lesson.getStartLessonTime(),
 	            lesson.getGrade(),
 	            lesson.getTeacher().getId(),

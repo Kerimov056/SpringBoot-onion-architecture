@@ -19,11 +19,13 @@ public class GetLessonDto {
 
 	private String subject;
 
+	private Integer studentCount;
+
 	private LocalDateTime startLessonTime;
 
 	private Integer grade;
 
 	private UUID teacher_id;
-	
+
 	private List<GetStudentDto> getStudentDtos;
 }
